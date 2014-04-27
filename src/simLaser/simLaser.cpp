@@ -169,7 +169,7 @@ void simLaser::customDraw()
             ofNoFill();
             ofSetColor(128,128,128);
             //ofScale(baseWidth/10.0,baseHeight/10.0,baseWidth/10.0);
-            ofBox(0.,0.,0.,2.);
+            ofDrawBox(0.,0.,0.,2.);
             // LASER BEAM
             ofEnableBlendMode(OF_BLENDMODE_ALPHA);
             ofPushStyle();
