@@ -1,0 +1,50 @@
+<simula_v1.0_LAPSUS>
+	<rot_Z>0</rot_Z>
+	<dimmer_aLL>255</dimmer_aLL>
+	<view_mode>1</view_mode>
+	<alpha_trail>50</alpha_trail>
+	<cam_angle>100</cam_angle>
+	<cam_speed>0.5</cam_speed>
+	<active>1</active>
+	<axis>0</axis>
+	<reset_cam>0</reset_cam>
+	<bckgrnd_color>0</bckgrnd_color>
+	<show_gui>0</show_gui>
+	<OSC_console>0</OSC_console>
+	<OSC_follow_point>0</OSC_follow_point>
+	<show_follow_point>0</show_follow_point>
+	<point>67.3469, 30.6122, 96.9388</point>
+	<light_att._const>0.13</light_att._const>
+	<light_att._linear>0.0025</light_att._linear>
+	<light_att._quadr>0.0005625</light_att._quadr>
+<simula_v1.0_LAPSUS/>
+<simula_v1.0_LEV>
+		<rot_Z>0</rot_Z>
+		<dimmer_aLL>255</dimmer_aLL>
+		<view_mode>1</view_mode>
+		<alpha_trail>10</alpha_trail>
+		<cam_angle>44.1</cam_angle>
+		<cam_speed>18.5001</cam_speed>
+		<active>1</active>
+		<axis>0</axis>
+		<reset_cam>0</reset_cam>
+		<bckgrnd_color>0</bckgrnd_color>
+		<show_gui>0</show_gui>
+		<OSC_console>0</OSC_console>
+		<OSC_follow_point>0</OSC_follow_point>
+		<show_follow_point>0</show_follow_point>
+		<point>-1.02041, 0, 0</point>
+		<light_att._const>0.47</light_att._const>
+		<light_att._linear>0</light_att._linear>
+		<light_att._quadr>1.425e-05</light_att._quadr>
+	<orient_X>0</orient_X>
+		<orient_Y>0</orient_Y>
+		<orient_Z>0</orient_Z>
+	<orientation>180, 180, 16.25</orientation>
+	<orientation2>85, 0, 0</orientation2>
+		<orientation3>90, -48, 0</orientation3>
+	<show_Gui>0</show_Gui>
+		<show_Lasers>1</show_Lasers>
+		<show_3D>1</show_3D>
+	</simula_v1.0_LEV>
+</simula_v1.0_LAPSUS>
