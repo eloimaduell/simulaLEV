@@ -256,19 +256,10 @@ void testApp::setupGUI()
     p_showGui.addListener(this,&testApp::toggleShowGui);
     p_fov.addListener(this,&testApp::sliderFov);
     p_speedCam.addListener(this,&testApp::changedCamSpeed);
-    p_orientation.addListener(this,&testApp::orientationChanged);
-    p_orientation2.addListener(this,&testApp::orientationChanged2);
-    p_orientation3.addListener(this,&testApp::orientationChanged3);
     
     gui.setup("simula v1.0 LEV"); // most of the time you don't need a name
 	gui.setPosition(10,10);
 
-
-    gui.add(p_orientation.set("orientation",ofVec3f(0,0,0),ofVec3f(-180,-180,-180),ofVec3f(180,180,180)));
-    gui.add(p_orientation2.set("orientation2",ofVec3f(0,0,0),ofVec3f(-180,-180,-180),ofVec3f(180,180,180)));
-    gui.add(p_orientation3.set("orientation3",ofVec3f(0,0,0),ofVec3f(-180,-180,-180),ofVec3f(180,180,180)));
-
-            
     gui.add(p_rotationZ.set("rot_Z",0,-90,90));
     //gui.add(p_rotationY.set("pan_Y",0,-270,270));
 	gui.add(p_dimmer.set("dimmer aLL",255,0,255));
@@ -1062,8 +1053,8 @@ void testApp::windowResized(int w, int h)
     }
 
     // update easyCam
-    camEasyCam.viewportForMouse.x=210;
-    camEasyCam.viewportForMouse.y=10;
+    //camEasyCam.viewportForMouse.x=210;
+    //camEasyCam.viewportForMouse.y=10;
     camEasyCam.viewportForMouse.width=changedWindowSize.x;
     camEasyCam.viewportForMouse.height=changedWindowSize.y;
     
@@ -1159,41 +1150,6 @@ void testApp::changedCamSpeed(float &f)
 {
     gameCam.speed = p_speedCam;
 }
-
-//----------------------------------------------------------------------------------------------------------------------------
-void testApp::orientationChanged(ofVec3f &v)
-{
-    if(setupFinished)
-    {
-        cout  <<" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   ORIENTATION CHANGED !!!! " <<endl;
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------------
-void testApp::orientationChanged2(ofVec3f &v)
-{
-    
-    if(setupFinished)
-    {
-//        cout  <<" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   ORIENTATION CHANGED 2 !!!! " <<endl;
-//
-//        for(int i=4;i<8;i++)
-//        {
-//            lasers[i]->setorientationX(p_orientation2->x);
-//            lasers[i]->setorientationY(p_orientation2->y);
-//            lasers[i]->setorientationZ(p_orientation2->z);
-//        }
-    }
-}//----------------------------------------------------------------------------------------------------------------------------
-void testApp::orientationChanged3(ofVec3f &v)
-{
-    
-    if(setupFinished)
-    {
-        cout  <<" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   ORIENTATION CHANGED 3 !!!! " <<endl;
-    }
-}
-
 //----------------------------------------------------------------------------------------------------------------------------
 void testApp::receiveOscMessages()
 {

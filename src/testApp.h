@@ -10,11 +10,8 @@
 #include "OrthoCamera.h"
 #include "simLaser.h"
 #include "simQuad.h"
-//#include "simParticle.h"
-#include "pmThreadedOscReceiver.h"
 #include "ofxGameCamera.h"
-
-#include "ofxAssimpModelLoader.h"
+#include "ofxOsc.h"
 #include "ofxFBX.h"
 
 #define N_CAMERAS 3
@@ -102,9 +99,6 @@ class testApp : public ofBaseApp {
     vector<ofColor> colorTable;
 	
 	// gui
-	ofParameter	<ofVec3f> p_orientation;
-	ofParameter	<ofVec3f> p_orientation2;
-	ofParameter	<ofVec3f> p_orientation3;
 	ofParameter	<float> p_rotationZ;
 	ofParameter	<int> p_dimmer;
 	ofParameter	<int> p_alphaMix;
@@ -130,9 +124,6 @@ class testApp : public ofBaseApp {
     
 	ofxPanel		gui;
 
-    void            orientationChanged(ofVec3f &f);
-    void            orientationChanged2(ofVec3f &f);
-    void            orientationChanged3(ofVec3f &f);
 	void			sliderRotationZAll(float &f);
 	void			sliderDimmerAll(int &f);
     void            sliderFov(float &f);
@@ -147,7 +138,6 @@ class testApp : public ofBaseApp {
 	//-- osc
 	ofxOscReceiver	oscRec;
 	void			receiveOscMessages();
-    void            newOscMessageReceivedOnTestApp(pmOscMessage &mess);
 	
 	
 	// -- graphics
