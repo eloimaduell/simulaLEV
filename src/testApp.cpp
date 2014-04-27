@@ -1055,8 +1055,8 @@ void testApp::windowResized(int w, int h)
     // update easyCam
     //camEasyCam.viewportForMouse.x=210;
     //camEasyCam.viewportForMouse.y=10;
-    camEasyCam.viewportForMouse.width=changedWindowSize.x;
-    camEasyCam.viewportForMouse.height=changedWindowSize.y;
+//    camEasyCam.viewportForMouse.width=changedWindowSize.x;
+  //  camEasyCam.viewportForMouse.height=changedWindowSize.y;
     
     // update gameCam
     gameCam.appViewport = ofRectangle(210,10,changedWindowSize.x,changedWindowSize.y);
