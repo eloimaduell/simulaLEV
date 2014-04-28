@@ -31,14 +31,14 @@ simLaser::simLaser()
 }
 
 //------------------------------------------------------------------
-void simLaser::init(int _number,float _orientationX,float _orientationY, float _orientationZ)
+void simLaser::init(string _name,int _number,float _orientationX,float _orientationY, float _orientationZ)
 {
 	number = _number;
-	name = string("L"+ofToString(number));
+	name = _name;
     orientationX = _orientationX;
 	orientationY = _orientationY;
 	orientationZ = _orientationZ;
-
+    
     // GUI
     ////////
     
@@ -47,7 +47,7 @@ void simLaser::init(int _number,float _orientationX,float _orientationY, float _
     gui.add(p_rotationZ.set("Z tilt",0,-125,125));
     gui.add(p_rotationY.set("Y pan",0,-270,270));
 	gui.add(p_dimmer.set("dimmer",255,0,255));
-
+    
     resizeWindow();
   	
 }
@@ -60,19 +60,19 @@ void simLaser::customDraw()
 	// We run the update ourselves manually. ofNode does
 	//  not do this for us.
 	update();
-
-//	// Turn on wireframe mode
-//	glPolygonMode(GL_FRONT, GL_LINE);
-//	glPolygonMode(GL_BACK, GL_LINE);
+    
+    //	// Turn on wireframe mode
+    //	glPolygonMode(GL_FRONT, GL_LINE);
+    //	glPolygonMode(GL_BACK, GL_LINE);
 	
     
-//    // lines
-//    float floorW = 1800.0;
-//    float floorH = 4400.0;
-//    
-//	ofSetLineWidth(4.0);
-//	ofSetColor(255,128,0);
-//    ofLine(0,0,0,-floorW/2.0,0,0);
+    //    // lines
+    //    float floorW = 1800.0;
+    //    float floorH = 4400.0;
+    //
+    //	ofSetLineWidth(4.0);
+    //	ofSetColor(255,128,0);
+    //    ofLine(0,0,0,-floorW/2.0,0,0);
     
     
     
@@ -80,24 +80,24 @@ void simLaser::customDraw()
     {
         
         glTranslatef(this->getPosition().x,this->getPosition().y,this->getPosition().z);
-
+        
         ofQuaternion q;
         //q.set();
         
         setOrientation(ofVec3f(orientationX,orientationY,orientationZ));
         
-//        // CASI
-//        glRotatef(orientationY, 0.0,1.0,0.0);
-//        glRotatef(orientationX, 1.0,0.0,0.0);
-//        glRotatef(orientationZ, 0.0,0.0,1.0);
+        //        // CASI
+        //        glRotatef(orientationY, 0.0,1.0,0.0);
+        //        glRotatef(orientationX, 1.0,0.0,0.0);
+        //        glRotatef(orientationZ, 0.0,0.0,1.0);
         // CASI
         glRotatef(orientationY, 0.0,1.0,0.0);
         glRotatef(orientationZ, 0.0,0.0,1.0);
         glRotatef(orientationX, 1.0,0.0,0.0);
-
+        
         
         //glTranslatef(-this->getPosition().x,-this->getPosition().y,-this->getPosition().z);
-
+        
         
         // calculate a point in Laser
         float dist = 8000;
@@ -108,20 +108,20 @@ void simLaser::customDraw()
         //printf("calculating aPointInLaser dist * %f * %f = %f\n",cos(ofDegToRad(90.0+p_rotationY)),sin(ofDegToRad(p_rotationZ)),dist*cos(ofDegToRad(90.0+p_rotationY))*sin(ofDegToRad(p_rotationZ) ));
         // draw reference lines for aPointInLaser
         /*
-        ofPushStyle;
-        ofPushMatrix();
-        {
-            ofFill();
-            ofSetColor(255,0,0);
-            ofLine(0.,0.+baseHeight,0.,aPointInLaser.x,aPointInLaser.y,aPointInLaser.z);
-            ofTranslate(aPointInLaser);
-            ofBox(0.,0.,0.,10);
-        }
-        ofPopMatrix();
-        ofPopStyle();
-        */
+         ofPushStyle;
+         ofPushMatrix();
+         {
+         ofFill();
+         ofSetColor(255,0,0);
+         ofLine(0.,0.+baseHeight,0.,aPointInLaser.x,aPointInLaser.y,aPointInLaser.z);
+         ofTranslate(aPointInLaser);
+         ofBox(0.,0.,0.,10);
+         }
+         ofPopMatrix();
+         ofPopStyle();
+         */
         
-
+        
         // mark initial point
         if(tiltSpeedLimit)
         {
@@ -132,16 +132,16 @@ void simLaser::customDraw()
                 glBegin(GL_POINTS);
                 glVertex3f(0.,0.,0.);
                 glEnd();
-                ofPopStyle();	
+                ofPopStyle();
             }
         }
-
-
+        
+        
         // draw local Axis
         ofSetLineWidth(1.0);
         if(drawAxis) ofDrawAxis(100.0f);
-
-
+        
+        
         // BASE BOX
         ofPushStyle();
         {
@@ -153,13 +153,13 @@ void simLaser::customDraw()
             ofLine(0.0 , 0.0 , 0.0 ,0.0 ,  baseHeight ,0.0);
         }
         ofPopStyle();
-
+        
         ofPushStyle();
         ofPushMatrix();
         {
             ///////////////////////////
             // ALL THIS PART ROTATES !!
-
+            
             ofTranslate(0.0,baseHeight,0.0);
             //ofRotate(-((float(p_rotationZ)/1023.0)*300.0)+150.0, 0.0, 0.0, -1.0);
             ofRotate(float(p_rotationY), 0.0, 1.0, 0.0);
@@ -188,12 +188,12 @@ void simLaser::customDraw()
                 
                 /// SHARPY CONE
                 /*
-                //ofSetColor(color.r*(float(p_dimmer.get())/255.0),color.g*(float(p_dimmer.get())/255.0),color.b*(float(p_dimmer.get())/255.0),255);
-                float reducedAlphaDimmer = ofMap(p_dimmer,0.0,255.0,0.0,200.0);
-                ofSetColor(color.r,color.g,color.b,reducedAlphaDimmer);
-                ofTranslate(0,1500/2,0);
-                ofConePrimitive(25, 1500.0, 24, 1).draw();
-                */
+                 //ofSetColor(color.r*(float(p_dimmer.get())/255.0),color.g*(float(p_dimmer.get())/255.0),color.b*(float(p_dimmer.get())/255.0),255);
+                 float reducedAlphaDimmer = ofMap(p_dimmer,0.0,255.0,0.0,200.0);
+                 ofSetColor(color.r,color.g,color.b,reducedAlphaDimmer);
+                 ofTranslate(0,1500/2,0);
+                 ofConePrimitive(25, 1500.0, 24, 1).draw();
+                 */
             }
             ofPopMatrix();
             ofPopStyle();
@@ -201,30 +201,69 @@ void simLaser::customDraw()
             
             //
             ///////////////////////////
-
+            
         }
         ofPopMatrix();
-
-
+        
+        
         // draw label
         ofPushMatrix();
+        
         {
-            ofTranslate(20.0,0.0,0.0);
-            ofRotate(180.0, 1.0, 0.0,0.0);
-            //ofDrawBitmapString(name,this->getPosition().x,this->getPosition().y,this->getPosition().z);
-            //drawString(aTextString, x, y, z, OF_BITMAPMODE_MODEL);
-            //font.drawString(name,this->getPosition().x,this->getPosition().y,this->getPosition().z,OF_BITMAPMODE_MODEL);
-            //font.drawString(name, this->getPosition().x, this->getPosition().y);
             
-//            ofSetColor(255,255,255,255);
-//            font.drawString(ofToString(interOscTime), this->getPosition().x, this->getPosition().y);
-
+            // Render label
+            /*
+            ofSetColor(255, 255, 255);
+            ofSetDrawBitmapMode(OF_BITMAPMODE_MODEL);
+            ofDrawBitmapString("LASER",this->getPosition());
+            */
+            
+            ofPushMatrix();
+            
+            {
+                /// BILLBOARDING
+                float modelview[16];
+                int i,j;
+                
+                // save the current modelview matrix
+                glPushMatrix();
+                
+                // get the current modelview matrix
+                glGetFloatv(GL_MODELVIEW_MATRIX , modelview);
+                
+                // undo all rotations
+                // beware all scaling is lost as well
+                for( i=0; i<3; i++ )
+                    for( j=0; j<3; j++ ) {
+                        if ( i==j )
+                            modelview[i*4+j] = 1.0;
+                        else
+                            modelview[i*4+j] = 0.0;
+                    }
+                
+                // set the modelview with no rotations
+                glLoadMatrixf(modelview);
+                ofSetColor(255);
+                ofPushStyle();
+                ofEnableAlphaBlending();
+                //ofDisableDepthTest();
+                font.drawString(this->name, 0, 0);
+                //ofEnableDepthTest();
+                ofPopStyle();
+                
+                
+                
+                glPopMatrix();
+            }
+            
+            ofPopMatrix();
+            
         }
         ofPopMatrix();
 	}
 	ofPopMatrix();
     
-   
+    
 }
 
 //------------------------------------------------------------------
@@ -315,7 +354,7 @@ float simLaser::getorientationZ()
 //void simLaser::setRotationZ(float f)
 //{
 //    unsigned long long now = ofGetElapsedTimeMillis();
-//	
+//
 //    p_rotationZ.set(f);
 //
 //
@@ -332,7 +371,7 @@ float simLaser::getorientationZ()
 // */
 //    if(actualTiltSpeed!=INFINITY) bufferSpeedLim[bufferIt] = actualTiltSpeed;
 //    else bufferSpeedLim[bufferIt]=0;
-//    
+//
 //    bufferIt=((bufferIt+1)%bufferSpeedSize);
 ////    if(number==0)
 ////    {
@@ -342,9 +381,9 @@ float simLaser::getorientationZ()
 //    {
 //        total=total+bufferSpeedLim[i];
 //    }
-//    
+//
 //    float medianSpeed = total / float(bufferSpeedSize);
-//    
+//
 //    if((medianSpeed>192.0) && (true))
 //    {
 //     //printf("median speed of last 30 osc receptions is : %f total %f\n",medianSpeed, total);
@@ -354,22 +393,22 @@ float simLaser::getorientationZ()
 //    {
 //        //tiltSpeedLimit=false;
 //    }
-//    
+//
 //    //}
-//    
-//    
+//
+//
 //    //interOscTime = int(now-lastTiltTime);
-//    
+//
 //    //printf("%d\n",int(now-lastTiltTime));
 //    /*
 //    if(number==0)
 //    {
 //        printf("NOW is %lld lastTime %lld ...... dif %lld\n",now,lastTiltTime,now-lastTiltTime);
-//        
+//
 //        if(false)
 //        //if(actualTiltSpeed>192.0)
 //        {
-//            
+//
 //            if(actualTiltSpeed!=INFINITY)
 //            {
 //                tiltSpeedLimit=true;
@@ -385,8 +424,8 @@ float simLaser::getorientationZ()
 //    lastTiltValue=p_rotationZ;
 //    lastTiltTime=now;
 //
-//    
-//    
+//
+//
 //}
 //
 
@@ -418,12 +457,12 @@ void simLaser::resizeWindow()
     {
         gui.setPosition(10+((number-int(float(numLasers)/2.0))*(xSpan+5)),ofGetHeight()-ySpan*1);
     }
-
+    
     gui.setSize(xSpan,ySpan);
     gui.setDefaultWidth(xSpan);
     gui.setWidthElements(xSpan);
-
-
+    
+    
     //gui.setPosition(100,600);
 }
 

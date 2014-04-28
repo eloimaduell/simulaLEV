@@ -9,10 +9,10 @@
 #include "Grid.h"
 #include "OrthoCamera.h"
 #include "simLaser.h"
-#include "simQuad.h"
 #include "ofxGameCamera.h"
 #include "ofxOsc.h"
 #include "ofxFBX.h"
+#include "ofxDeferredShading.h"
 
 #define N_CAMERAS 3
 
@@ -113,11 +113,7 @@ class testApp : public ofBaseApp {
     ofParameter <bool> p_showModel;
     ofParameter <bool> p_renderSolid;
     ofParameter <bool> p_renderWireframe;
-    
-    
-    ofParameter <float> p_lightAttConstant;
-    ofParameter <float> p_lightAttLinear;
-    ofParameter <float> p_lightAttQuadratic;
+    ofParameter <ofVec3f> p_attenuationContLinQuad;
     
     ofParameter <float> p_fov;
     ofParameter <ofVec3f> p_point;
@@ -154,5 +150,6 @@ class testApp : public ofBaseApp {
     vector<ofxFBXMesh*>     meshes;
     vector<ofxFBXLight*>    lights;
     vector<ofxFBXNode*>     nulls;
+    ofxDeferredShading      deferred;
     
 };
