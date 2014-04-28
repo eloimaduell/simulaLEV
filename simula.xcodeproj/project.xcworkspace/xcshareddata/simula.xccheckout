@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A5CB88BB-CEC5-429A-ABCC-53AAD547FA54</string>
+	<key>IDESourceControlProjectName</key>
+	<string>simula</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8248B135-A881-4324-8DE3-72C62F219104</key>
+		<string>https://github.com/eloimaduell/simulaLEV.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>simula.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8248B135-A881-4324-8DE3-72C62F219104</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eloimaduell/simulaLEV.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8248B135-A881-4324-8DE3-72C62F219104</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8248B135-A881-4324-8DE3-72C62F219104</string>
+			<key>IDESourceControlWCCName</key>
+			<string>simula10_LEV_3D_2</string>
+		</dict>
+	</array>
+</dict>
+</plist>

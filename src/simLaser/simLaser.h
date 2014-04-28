@@ -17,7 +17,7 @@ class simLaser : public ofNode {
 	
 	
 	simLaser();
-	void		init(int number,float orientationX,float orientationY,float _orientationZ);
+	void		init(string _name,int number,float orientationX,float orientationY,float _orientationZ);
 	void		customDraw();
 	// we call this update function ourselves
 	//  at the beginning of customDraw

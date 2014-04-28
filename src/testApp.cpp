@@ -7,10 +7,13 @@ int nColor;
 void testApp::setup(){
 
     
+    ofSetLogLevel(OF_LOG_VERBOSE);
+
 	ofBackground(0, 0,0);
     setupFinished = false;
     /// INIT VARIABLES
     
+
 	drawGrid = true;
     nColor=0;
 	iMainCamera = 0;
@@ -46,10 +49,16 @@ void testApp::setup(){
     gameCam.loadCameraPosition();
     windowResized(ofGetWidth(),ofGetHeight());
 
-    /// 3D MODEL DDD
-    //ofSetLogLevel(OF_LOG_VERBOSE);
+    /// DEFERRED SHADING
+    // needed for ofxDeferredShading
+    ofDisableArbTex();
+
+    deferred.setup(&gameCam);
     
-    string modelFilename = "lev.fbx";
+    
+    /// 3D MODEL DDD
+    
+    string modelFilename = "levLightsScaled.fbx";
     fbx.load(modelFilename);
     
     /// MESHES
@@ -60,28 +69,15 @@ void testApp::setup(){
         cout << "MESH Name " <<i <<" : " <<fbx.meshNames[i] <<endl;
     }
     /// LIGHTS
-    ofSetSmoothLighting(true);
-    ofSetGlobalAmbientColor(ofColor(0, 0, 0));
-
+    //ofSetSmoothLighting(true);
+    //ofSetGlobalAmbientColor(ofColor(0, 0, 0));
+    
     lights = fbx.getLights();
     for(int i=0;i<lights.size();i++)
     {
-        cout << "LIGHT Name " <<i <<" : " <<fbx.lightNames[i] <<endl;
-        cout << "---- position : " << lights[i]->getPositionAtFrame(0) <<endl;
-        
-        ofLight* light = new ofLight();
-        
-        light->setup();
-        light->setPointLight();
-        light->setAmbientColor(ofColor(0.0f, 0.0f, 0.0f));
-        if(i==2) light->setDiffuseColor( ofFloatColor(1.0, 1.0, 1.0) );
-        else light->setDiffuseColor( ofFloatColor(0.8, 0.9, 1.0) );
-        //light->setDiffuseColor(ofFloatColor(ofRandomf(),ofRandomf(),ofRandomf()));
-        light->setSpecularColor( ofFloatColor(1.f, 1.f, 1.f));
-        light->setPosition(lights[i]->getPositionAtFrame(0));
-        light->enable();
-        
-        OFlights.push_back(light);
+        cout << "adding FBX light at " << lights[i]->getPositionAtFrame(0);
+        //void addLight(ofVec3f _pos, ofColor _ambient, ofColor _diffuse, ofColor _specular, ofVec3f _attenuation);
+		deferred.addLight(lights[i]->getPositionAtFrame(0), ofFloatColor(0.0f, 0.0f, 0.0f), ofFloatColor(1.0, 1.0, 1.0), ofFloatColor(1.0, 1.0, 1.0),p_attenuationContLinQuad);
     }
     
     
@@ -103,6 +99,10 @@ void testApp::setup(){
     }
     
     nulls = fbx.getNulls();
+    
+    int countMoviles=0;
+    int countFixed=0;
+
     for(int i=0;i<nulls.size();i++)
     {
         cout << "NULL Name " <<i <<" : " <<fbx.nullNames[i] <<endl;
@@ -130,7 +130,7 @@ void testApp::setup(){
         
             int whereIsUnderscore=fbx.nullNames[i].find("_");
             int whichLaser = ofToInt(fbx.nullNames[i].substr(whereIsUnderscore+1))-1;
-
+            
             if(fbx.nullNames[i].find("laserM")!=-1)
             {
                 // LASER MOVIL
@@ -142,8 +142,9 @@ void testApp::setup(){
                 lasersM[whichLaser]->setColor(ofColor(0,0,255));
 
                 lasersM[whichLaser]->numLasers=8;
-                lasersM[whichLaser]->name=fbx.nullNames[i];
-                lasersM[whichLaser]->init(1, 0, 0,0);
+                lasersM[whichLaser]->name=fbx.nullNames[countMoviles];
+                string laserName = "L_" +ofToString(countMoviles+1);
+                lasersM[whichLaser]->init(laserName,1, 0, 0,0);
                 lasersM[whichLaser]->setPosition(*pos);
                 
                 lasersM[whichLaser]->setorientationX(vecCorrect->x);
@@ -151,6 +152,8 @@ void testApp::setup(){
                 lasersM[whichLaser]->setorientationZ(vecCorrect->z);
                 
                 lasersM[whichLaser]->quatOrientation = *quat;
+                
+                countMoviles=countMoviles+1;
 
             }
             else if((fbx.nullNames[i].find("laserR")!=-1)||(fbx.nullNames[i].find("laserB")!=-1))
@@ -158,12 +161,23 @@ void testApp::setup(){
                 // LASER MOVIL
                 cout << "found a laser FIEXED with id : " <<" _ " << fbx.nullNames[i].substr(whereIsUnderscore+1) <<" which is ID :: " << whichLaser <<endl;
                 
-                if((fbx.nullNames[i].find("laserB")!=-1)) lasers[whichLaser]->setColor(ofColor(0,0,255));
-                else lasers[whichLaser]->setColor(ofColor(255,0,0));
+                string letter;
+                if((fbx.nullNames[i].find("laserB")!=-1))
+                {
+                    lasers[whichLaser]->setColor(ofColor(0,0,255));
+                    letter="B";
+                }
+                else
+                {
+                    lasers[whichLaser]->setColor(ofColor(255,0,0));
+                    letter="R";
+                }
                 
                 lasers[whichLaser]->numLasers=16;
                 lasers[whichLaser]->name=fbx.nullNames[i];
-                lasers[whichLaser]->init(1, 0, 0,0);
+                string laserName = "L" + letter + "_" +ofToString(countFixed+1);
+
+                lasers[whichLaser]->init(laserName,1, 0, 0,0);
                 lasers[whichLaser]->setPosition(*pos);
                 
                 lasers[whichLaser]->setorientationX(vecCorrect->x);
@@ -171,6 +185,8 @@ void testApp::setup(){
                 lasers[whichLaser]->setorientationZ(vecCorrect->z);
                 
                 lasers[whichLaser]->quatOrientation = *quat;
+                
+                countFixed=countFixed+1;
                 
             }
         }
@@ -277,13 +293,13 @@ void testApp::setupGUI()
     gui.add(p_renderWireframe.set("render wire",false));
 
     gui.add(p_printOscOnConsole.set("OSC console",false));
-    gui.add(p_lightAttConstant.set("light att. const",0.0,0.0,2.0));
-    gui.add(p_lightAttLinear.set("light att. linear",0.0,0.0,0.025));
-    gui.add(p_lightAttQuadratic.set("light att. quadr",0.000006,0.0,0.00015));
+    
+    gui.add(p_attenuationContLinQuad.set("light attenuation Const Lin Quadr",ofVec3f(0.0,0.0,0.000006),ofVec3f(0,0,0),ofVec3f(2.0,0.025,0.00015)));
+    
     gui.setSize(200,400);
     gui.setWidthElements(200);
     
-    gui.loadFromFile(ofToDataPath("",true) +"./simulaLEV.xml");
+    //gui.loadFromFile(ofToDataPath("",true) +"./simulaLEV.xml");
     float f;
     f = p_fov;
     sliderFov(f);
@@ -789,7 +805,7 @@ void testApp::drawLasers()
 		{
             ofPushMatrix();
             
-            if((i==0)||(i==1)||((i>=8)&&(i<=14)))
+            if((i>=0)&&(i<16)) //||((i>=8)&&(i<=14)))
             {
              lasers[i]->customDraw();
             }
@@ -830,7 +846,7 @@ void testApp::drawScene(int iCameraDraw)
     // CCC
     //enableFog(50,700);
     
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     
 	// draw grid?
@@ -851,7 +867,7 @@ void testApp::drawScene(int iCameraDraw)
         ofPopMatrix();
     }
 
-    ofEnableDepthTest();
+    //ofEnableDepthTest();
     
     if(p_showAxis) drawLightsHelpers();
     
@@ -859,24 +875,12 @@ void testApp::drawScene(int iCameraDraw)
     
     if(p_showModel)
     {
-        /// 3D MODEL
-        for(int i=0;i<lights.size();i++)
-        {
-            OFlights[i]->enable();
-            OFlights[i]->setAttenuation(p_lightAttConstant,p_lightAttLinear,p_lightAttQuadratic);
-        }
-        
-        
-        
-        ofEnableLighting();
-        
+        /// DEFERRED SHADING
+        deferred.begin();
         
         ofPushMatrix();
         ofPushStyle();
-        
-        ofScale(1,1,1);
-        
-        //ofEnableSmoothing();
+
         for(int i=0;i<meshes.size();i++)
         {
             
@@ -920,23 +924,20 @@ void testApp::drawScene(int iCameraDraw)
                 ofPopMatrix();
             }
         }
-        //    for(int i=0;i<meshes.size();i++)
-        //    {
-        //        meshes[i]->drawWireframe();
-        //    }
-        //ofDisableSmoothing();
+        
+        deferred.end();
         
         
     }
-    ofDisableLighting();
+    //ofDisableLighting();
     
     ofPopMatrix();
     
     ofPopStyle();
     
-	ofDisableDepthTest();
+	//ofDisableDepthTest();
     
-    disableFog();
+    //disableFog();
 
 }
 
@@ -1076,7 +1077,8 @@ void testApp::windowResized(int w, int h)
 	{
 		lasersM[i]->resizeWindow();
 	}
-    
+
+	deferred.resizeBuffersAndTextures();
 }
 //----------------------------------------------------------------------------------------------------------------------------
 void testApp::sliderRotationZAll(float &f)
