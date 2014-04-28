@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B05ED983190E9BB70043FE89 /* gBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B05ED979190E9BB70043FE89 /* gBuffer.cpp */; };
+		B05ED985190E9BB70043FE89 /* ofxDeferredShading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B05ED97D190E9BB70043FE89 /* ofxDeferredShading.cpp */; };
+		B05ED986190E9BB70043FE89 /* ssaoPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B05ED981190E9BB70043FE89 /* ssaoPass.cpp */; };
 		B076F4F41889379600C7D7F6 /* simQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B076F4F21889379600C7D7F6 /* simQuad.cpp */; };
 		B0BB2ACC1884D0E6002FC3F7 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BB2AC51884D0E6002FC3F7 /* tinyxml.cpp */; };
 		B0BB2ACD1884D0E6002FC3F7 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BB2AC71884D0E6002FC3F7 /* tinyxmlerror.cpp */; };
@@ -100,6 +103,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B05ED979190E9BB70043FE89 /* gBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gBuffer.cpp; sourceTree = "<group>"; };
+		B05ED97A190E9BB70043FE89 /* gBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gBuffer.h; sourceTree = "<group>"; };
+		B05ED97B190E9BB70043FE89 /* glUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glUtils.h; sourceTree = "<group>"; };
+		B05ED97D190E9BB70043FE89 /* ofxDeferredShading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDeferredShading.cpp; sourceTree = "<group>"; };
+		B05ED97E190E9BB70043FE89 /* ofxDeferredShading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDeferredShading.h; sourceTree = "<group>"; };
+		B05ED97F190E9BB70043FE89 /* pointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pointLight.h; sourceTree = "<group>"; };
+		B05ED980190E9BB70043FE89 /* primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = primitives.h; sourceTree = "<group>"; };
+		B05ED981190E9BB70043FE89 /* ssaoPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ssaoPass.cpp; sourceTree = "<group>"; };
+		B05ED982190E9BB70043FE89 /* ssaoPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssaoPass.h; sourceTree = "<group>"; };
 		B06449D01887D164007FF7CE /* pm.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pm.icns; sourceTree = "<group>"; };
 		B076F4F21889379600C7D7F6 /* simQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simQuad.cpp; sourceTree = "<group>"; };
 		B076F4F31889379600C7D7F6 /* simQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simQuad.h; sourceTree = "<group>"; };
@@ -469,6 +481,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B05ED977190E9BB70043FE89 /* ofxDeferredShading */ = {
+			isa = PBXGroup;
+			children = (
+				B05ED978190E9BB70043FE89 /* src */,
+			);
+			name = ofxDeferredShading;
+			path = ../../../addons/ofxDeferredShading;
+			sourceTree = "<group>";
+		};
+		B05ED978190E9BB70043FE89 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B05ED979190E9BB70043FE89 /* gBuffer.cpp */,
+				B05ED97A190E9BB70043FE89 /* gBuffer.h */,
+				B05ED97B190E9BB70043FE89 /* glUtils.h */,
+				B05ED97D190E9BB70043FE89 /* ofxDeferredShading.cpp */,
+				B05ED97E190E9BB70043FE89 /* ofxDeferredShading.h */,
+				B05ED97F190E9BB70043FE89 /* pointLight.h */,
+				B05ED980190E9BB70043FE89 /* primitives.h */,
+				B05ED981190E9BB70043FE89 /* ssaoPass.cpp */,
+				B05ED982190E9BB70043FE89 /* ssaoPass.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		B0BB2AC31884D0E6002FC3F7 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1101,6 +1138,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				B05ED977190E9BB70043FE89 /* ofxDeferredShading */,
 				B0C3F3EE1909733C007C0874 /* ofxFBX */,
 				B0CDEB78188C6803005781FF /* ofxGameCamera */,
 				B0BB2B5E1884D36A002FC3F7 /* simLaser */,
@@ -1282,6 +1320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B05ED986190E9BB70043FE89 /* ssaoPass.cpp in Sources */,
 				B0C3F5061909733F007C0874 /* ofxFBXLight.cpp in Sources */,
 				B0C3F4FF1909733F007C0874 /* AnimationUtility.cxx in Sources */,
 				B0BB2ACF1884D0E6002FC3F7 /* ofxXmlSettings.cpp in Sources */,
@@ -1289,6 +1328,7 @@
 				B0BB2B631884D36A002FC3F7 /* simLaser.cpp in Sources */,
 				B0C3F5011909733F007C0874 /* GeometryUtility.cxx in Sources */,
 				B0BB2AEA1884D126002FC3F7 /* ofxToggle.cpp in Sources */,
+				B05ED985190E9BB70043FE89 /* ofxDeferredShading.cpp in Sources */,
 				B0BB2B531884D252002FC3F7 /* UdpSocketWin.cpp in Sources */,
 				B0BB2B5B1884D252002FC3F7 /* ofxOscReceiver.cpp in Sources */,
 				B0BB2ACD1884D0E6002FC3F7 /* tinyxmlerror.cpp in Sources */,
@@ -1307,6 +1347,7 @@
 				B0BB2B521884D252002FC3F7 /* NetworkingUtilsWin.cpp in Sources */,
 				B0BB2AE31884D126002FC3F7 /* ofxBaseGui.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
+				B05ED983190E9BB70043FE89 /* gBuffer.cpp in Sources */,
 				B0BB2AE81884D126002FC3F7 /* ofxSlider.cpp in Sources */,
 				B0BB2B6A1884D37B002FC3F7 /* OrthoCamera.cpp in Sources */,
 				B0C3F5001909733F007C0874 /* Common.cxx in Sources */,
