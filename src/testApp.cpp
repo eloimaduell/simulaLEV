@@ -58,7 +58,7 @@ void testApp::setup(){
     
     /// 3D MODEL DDD
     
-    string modelFilename = "lev.fbx";
+    string modelFilename = "levLightsScaled.fbx";
     fbx.load(modelFilename);
     
     /// MESHES
@@ -75,10 +75,9 @@ void testApp::setup(){
     lights = fbx.getLights();
     for(int i=0;i<lights.size();i++)
     {
-        
+        cout << "adding FBX light at " << lights[i]->getPositionAtFrame(0);
         //void addLight(ofVec3f _pos, ofColor _ambient, ofColor _diffuse, ofColor _specular, ofVec3f _attenuation);
-
-        deferred.addLight(lights[i]->getPositionAtFrame(0), ofFloatColor(0.0f, 0.0f, 0.0f), ofFloatColor(1.0, 1.0, 1.0), ofFloatColor(1.0, 1.0, 1.0),p_attenuationContLinQuad);
+		deferred.addLight(lights[i]->getPositionAtFrame(0), ofFloatColor(0.0f, 0.0f, 0.0f), ofFloatColor(1.0, 1.0, 1.0), ofFloatColor(1.0, 1.0, 1.0),p_attenuationContLinQuad);
     }
     
     
@@ -1078,7 +1077,8 @@ void testApp::windowResized(int w, int h)
 	{
 		lasersM[i]->resizeWindow();
 	}
-    
+
+	deferred.resizeBuffersAndTextures();
 }
 //----------------------------------------------------------------------------------------------------------------------------
 void testApp::sliderRotationZAll(float &f)

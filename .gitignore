@@ -115,3 +115,5 @@ Release*/
 bin/data/logs
 TODO.md
 *.json
+/simula.xcodeproj/project.pbxproj
+/simula.xcodeproj/project.xcworkspace/xcuserdata/wswi.xcuserdatad/UserInterfaceState.xcuserstate
